@@ -99,9 +99,10 @@ app.get('/',(req, res) => {
 });
 
 // getメソッド
+    // 名言を返すメソッド
 app.get('/quotes/:id', (req, res) => {
-    // 1. jsonファイルを読み込み
-    // 2. 引数として、送られてきたidを変数に格納する
-    // 3. idとindexが同じ値のものをresponseとして返す
-    
+    // 1. URLからidの値を取得する
+    // 2. quotesListの名から、indexがidと一致するデータを探す
+    // 3. 発見できた場合は、json形式で返す
+
 });
