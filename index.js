@@ -5,7 +5,8 @@ const app = express();
 // 使用するポート番号の指定 -> 3000番、8080番がよく使われる
 const port = 8080;
 
-const now = 2026;
+const now = new Date;
+const year = now.getFullYear();
 
 // データを格納しておく配列
 const quotesList = [
@@ -60,7 +61,7 @@ const quotesList = [
             name: "ビル・ゲイツ",
             overview: "米国の実業家、マイクロソフト社の創業者",
             born: 1879,
-            died: now,
+            died: year,
         }
     },
 
@@ -71,7 +72,7 @@ const quotesList = [
             name: "松下幸之助",
             overview: "日本の実業家、発明家、パナソニック創業者",
             born: 1955,
-            died: now,
+            died: year,
         }
     },
 
@@ -82,7 +83,7 @@ const quotesList = [
             name: "イーロン・マスク",
             overview: "南アフリカ出身の起業家。PayPal、Tesla、SpaceXを創業。OpenAIの共同創業者でもあった。",
             born: 1971,
-            died: now,
+            died: year,
         }
     },
 
@@ -102,7 +103,15 @@ app.get('/',(req, res) => {
     // 名言を返すメソッド
 app.get('/quotes/:id', (req, res) => {
     // 1. URLからidの値を取得する
+    const id = Number(req.params.id);
     // 2. quotesListの名から、indexがidと一致するデータを探す
+    const quote = quotesList.find(item => item.index === id);
     // 3. 発見できた場合は、json形式で返す
-
+    if (quote) {
+        res.json(quote);
+    } else {
+        res.status(404).json({
+            message: '指定されたidは存在しません',
+        });
+    }
 });
